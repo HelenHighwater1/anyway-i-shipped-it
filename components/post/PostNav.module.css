@@ -1,0 +1,23 @@
+/* BLOG_STANDARDS.md — Link Sketch Style; navigation labels use Virgil per Fonts section */
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-sketch);
+}
+
+.sketchLink {
+  font-family: var(--font-sketch);
+  color: var(--sketch-blue);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s, opacity 0.15s;
+}
+
+.sketchLink:hover {
+  border-bottom-color: var(--sketch-blue);
+  opacity: 0.8;
+}

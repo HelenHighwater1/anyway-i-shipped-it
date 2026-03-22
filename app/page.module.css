@@ -1,0 +1,147 @@
+/* BLOG_STANDARDS.md — Layout Constraints (.pageWrapper) */
+
+.pageWrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 1.5rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .pageWrapper {
+    padding: 2rem 2rem;
+  }
+}
+
+.header {
+  margin-bottom: 1rem;
+}
+
+.titleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.65rem;
+  margin-bottom: 0.5rem;
+}
+
+.siteTitle {
+  margin: 0;
+  font-family: var(--font-sketch);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: normal;
+  letter-spacing: -0.02em;
+  color: var(--sketch-text);
+  line-height: 1.2;
+}
+
+/* Scaled from public/shrug.png (936×254) — sits inline after the title */
+.titleShrug {
+  width: auto;
+  height: clamp(2.85rem, 10vw, 4.25rem);
+  max-width: min(58vw, 360px);
+  object-fit: contain;
+  display: block;
+}
+
+.tagline {
+  margin: 0;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--sketch-text-muted);
+  line-height: 1.5;
+}
+
+/* Rough.js panels — full width; inner padding comes from SketchPanel */
+.sketchPanel {
+  width: 100%;
+}
+
+.introSketchPanel {
+  flex: 1;
+}
+
+.recentPostsSketchPanel {
+  margin-top: 1.5rem;
+}
+
+.introSection {
+  margin-bottom: 0;
+}
+
+/* Extra horizontal inset for copy on desktop; flowchart stays full content width */
+@media (min-width: 768px) {
+  .panelTextBuffer {
+    padding-inline: 2rem;
+  }
+}
+
+.introHeading {
+  margin: 0 0 1rem;
+  font-family: var(--font-sketch);
+  font-size: 1.5rem;
+  font-weight: normal;
+  color: var(--sketch-text);
+}
+
+.body {
+  margin: 0 0 1rem;
+  font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--sketch-text);
+}
+
+/* Last intro paragraph lives in final .panelTextBuffer (buffers break section-level :last-of-type) */
+.introSection > .panelTextBuffer:last-child .body {
+  margin-bottom: 0;
+}
+
+/* Nearly full bleed: cancel panel padding; base 3px from rough stroke + asymmetric extras */
+.flowchartSlot {
+  --flowchart-edge-inset: 3px;
+  --flowchart-left-extra: 4px;
+  --flowchart-right-extra: 2px;
+  margin-block: 1.25rem;
+  margin-left: calc(
+    -1 * var(--sketch-panel-padding-x, 1.5rem) + var(--flowchart-edge-inset) +
+      var(--flowchart-left-extra)
+  );
+  margin-right: calc(
+    -1 * var(--sketch-panel-padding-x, 1.5rem) + var(--flowchart-edge-inset) +
+      var(--flowchart-right-extra)
+  );
+  width: calc(
+    100% + 2 * var(--sketch-panel-padding-x, 1.5rem) -
+      2 * var(--flowchart-edge-inset) - var(--flowchart-left-extra) -
+      var(--flowchart-right-extra)
+  );
+  max-width: none;
+}
+
+.postsSection {
+  margin-top: 0;
+}
+
+.postsHeading {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-sketch);
+  font-size: 1.5rem;
+  font-weight: normal;
+  color: var(--sketch-text);
+}
+
+.postGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .postGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

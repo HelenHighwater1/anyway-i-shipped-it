@@ -1,0 +1,15 @@
+/* BLOG_STANDARDS.md — Sketch Border Effect (CSS-only) */
+
+.primary {
+  border: 2px solid var(--sketch-stroke);
+  border-radius: 4px;
+  outline: 1px solid rgba(30, 30, 30, 0.05);
+  outline-offset: 1.5px;
+}
+
+.light {
+  border: 1.5px solid var(--sketch-stroke-light);
+  border-radius: 4px;
+  outline: 1px solid rgba(30, 30, 30, 0.03);
+  outline-offset: 1px;
+}

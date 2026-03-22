@@ -1,0 +1,28 @@
+/* BLOG_STANDARDS.md — Sketch Panel container structure */
+
+.sketchPanel {
+  position: relative;
+  min-height: 60vh;
+}
+
+.sketchPanelSvg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.sketchPanelContent {
+  position: relative;
+  z-index: 10;
+  --sketch-panel-padding-x: 1.5rem;
+  padding: 1.5rem;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@media (min-width: 768px) {
+  .sketchPanelContent {
+    --sketch-panel-padding-x: 2.5rem;
+    padding: 2.5rem;
+  }
+}

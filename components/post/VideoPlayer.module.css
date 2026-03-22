@@ -1,0 +1,13 @@
+/* BLOG_STANDARDS.md — Video Standards: max recording width 1200px */
+
+.wrap {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.video {
+  width: 100%;
+  height: auto;
+  display: block;
+  vertical-align: middle;
+}

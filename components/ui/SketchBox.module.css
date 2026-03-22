@@ -1,0 +1,25 @@
+/* BLOG_STANDARDS.md — Sketch Box container (padding p-5 md:p-6) */
+
+.sketchBox {
+  position: relative;
+}
+
+.sketchBoxSvg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.sketchBoxContent {
+  position: relative;
+  z-index: 10;
+  padding: 1.25rem;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@media (min-width: 768px) {
+  .sketchBoxContent {
+    padding: 1.5rem;
+  }
+}

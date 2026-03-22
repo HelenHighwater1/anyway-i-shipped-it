@@ -1,0 +1,26 @@
+/* Animated flowchart container — viewBox scales to width */
+
+.wrap {
+  width: 100%;
+  max-width: 100%;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Reveal steps (opacity/transform; Rough.js draws inside each <g>) */
+.flowStep {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.38s ease-out,
+    transform 0.38s ease-out;
+}
+
+.flowStepVisible {
+  opacity: 1;
+  transform: translateY(0);
+}

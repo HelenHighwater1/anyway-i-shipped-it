@@ -1,0 +1,74 @@
+@font-face {
+  font-family: 'Virgil';
+  src: url('https://cdn.jsdelivr.net/npm/@excalidraw/excalidraw@0.17.0/dist/excalidraw-assets/Virgil.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Backgrounds */
+  --sketch-bg: #f8f7f4;
+  --sketch-bg-warm: #f3f1ec;
+
+  /* Strokes & borders */
+  --sketch-stroke: #1e1e1e;
+  --sketch-stroke-light: #b0aeaa;
+
+  /* Text */
+  --sketch-text: #333333;
+  --sketch-text-muted: #777777;
+
+  /* Accent colors */
+  --sketch-blue: #4a90d9;
+  --sketch-coral: #e07a5f;
+  --sketch-green: #6ba368;
+  --sketch-purple: #8b5cf6;
+  --sketch-amber: #d4a843;
+
+  /* Sketch / hand-drawn type (Virgil + fallbacks) */
+  --font-sketch: 'Virgil', 'Segoe Print', 'Comic Sans MS', cursive;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--sketch-bg);
+  color: var(--sketch-text);
+  font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
+}
+
+body.dotGrid {
+  background-image: radial-gradient(
+    circle,
+    var(--sketch-stroke-light) 0.8px,
+    transparent 0.8px
+  );
+  background-size: 24px 24px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animateFadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Used by BlogNav SVG hit areas (portfolio: Tailwind cursor-pointer) */
+.cursor-pointer {
+  cursor: pointer;
+}

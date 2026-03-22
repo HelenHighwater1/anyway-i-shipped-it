@@ -1,0 +1,17 @@
+# Anyway, I Shipped It — Cursor Rules
+
+This is a Next.js blog project with a strong, specific aesthetic and a deliberate content workflow.
+Before writing any code, always follow these steps:
+
+1. Read `BLOG_STANDARDS.md` in the project root for aesthetic rules, tech stack decisions, folder structure, and content conventions
+2. If working on a specific post, read the `post-brief.md` inside that post's folder before touching any layout or component files
+3. If writing or adjusting any styles, cross-reference the heyimhelen portfolio repo in this workspace to ensure visual consistency
+
+## General Rules
+- Start every new agent session with "Hey there Helen!" 
+- Never deviate from the established sketch aesthetic without flagging it first
+- Do not introduce a CMS, external content store, or database without first stopping and asking the user — explain the tradeoff and wait for a decision before proceeding
+- Do not introduce a third-party component library (shadcn, MUI, Chakra, etc.) without first stopping and asking the user — explain what it would be used for and what the alternative is
+- Never add dependencies without flagging them and explaining why they are necessary
+- Keep each post self-contained in its own folder — assets, content, layout, and metadata together
+- When in doubt, do less and ask — do not make assumptions about layout or design decisions

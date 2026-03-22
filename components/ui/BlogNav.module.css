@@ -1,0 +1,11 @@
+/* Flowchart-style nav — portfolio-aligned spacing */
+
+.nav {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+}
