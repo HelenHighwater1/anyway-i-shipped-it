@@ -164,9 +164,9 @@ function applyStepVisibility(stylesObj, maxVisible) {
 /**
  * @param {object} [props]
  * @param {string} [props.className]
- * @param {ReturnType<typeof import('./flowchartConfig').cloneDefaultFlowchartConfig>} [props.flowchartConfig] — live config from editor; omit to use built-in defaults
- * @param {number} [props.configRevision] — bump when `flowchartConfig` mutates in place so Rough redraws
- * @param {boolean} [props.skipInViewAnimation] — show full diagram immediately (e.g. editor preview)
+ * @param {ReturnType<typeof import('./flowchartConfig').cloneDefaultFlowchartConfig>} [props.flowchartConfig] - live config from editor; omit to use built-in defaults
+ * @param {number} [props.configRevision] - bump when `flowchartConfig` mutates in place so Rough redraws
+ * @param {boolean} [props.skipInViewAnimation] - show full diagram immediately (e.g. editor preview)
  */
 export default function JobApplicationWorkflow({
   className = '',

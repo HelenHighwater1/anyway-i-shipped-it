@@ -14,7 +14,7 @@ import styles from './ApplicationWorkflowSvg.module.css';
 
 /**
  * Strip XML/DOCTYPE, remove fixed width/height from <svg>, add preserveAspectRatio.
- * No DOMParser/XMLSerializer — roundtripping breaks empty <mask> tags in Excalidraw exports.
+ * No DOMParser/XMLSerializer - roundtripping breaks empty <mask> tags in Excalidraw exports.
  */
 function cleanSvgString(raw) {
   let s = raw
@@ -30,10 +30,10 @@ function cleanSvgString(raw) {
   });
 }
 
-/** Synchronous at module load — no fetch, first render always has markup. */
+/** Synchronous at module load - no fetch, first render always has markup. */
 const INITIAL_SVG_HTML = cleanSvgString(APPLICATION_WORKFLOW_SVG_RAW);
 
-/** Opacity transition — longer + smoother than a snap so stagger reads as fade-in. */
+/** Opacity transition - longer + smoother than a snap so stagger reads as fade-in. */
 const FADE_TRANSITION =
   'opacity 0.85s cubic-bezier(0.33, 1, 0.68, 1)';
 

@@ -1,5 +1,5 @@
 # BLOG_STANDARDS.md
-# Anyway, I Shipped It — Project Standards
+# Anyway, I Shipped It - Project Standards
 
 This document is the source of truth for how this project is built and maintained.
 Read this before starting any new session or working on any new post.
@@ -10,8 +10,8 @@ Read this before starting any new session or working on any new post.
 
 - **Framework**: Next.js (App Router)
 - **Animation**: Framer Motion
-- **Styling**: CSS Modules — one per component, scoped and explicit
-- **Content**: MDX files with frontmatter for post metadata
+- **Styling**: CSS Modules - one per component, scoped and explicit
+- **Content**: MDX for post body (`content.mdx`); per-post listing metadata in `meta.json`
 - **Media**: MP4 video files (compressed before adding to repo), SVG diagrams
 - **Deployment**: Vercel
 
@@ -26,9 +26,9 @@ Read this before starting any new session or working on any new post.
 
 /posts
   /[post-slug]
-    content.mdx         ← post text, structured with labeled elements
+    content.mdx         ← all post body copy (markdown / MDX)
     meta.json           ← title, date, summary, thumbnail path, slug, url
-    post-brief.md       ← design brief for this post (written before Cursor session)
+    post-brief.md       ← optional short workflow / checklist (not a second copy source)
     layout.jsx          ← unique layout and animation for this post
     /assets
       *.png / *.jpg     ← screenshots and images
@@ -52,14 +52,14 @@ Read this before starting any new session or working on any new post.
 ## Post Metadata
 
 Each post folder contains a `meta.json` file with the following structure.
-This is the single source of truth for post metadata — do not duplicate these fields elsewhere.
+This is the single source of truth for post metadata - do not duplicate these fields elsewhere.
 
 ```json
 {
   "slug": "post-folder-name",
   "title": "Post Title Here",
   "date": "YYYY-MM-DD",
-  "summary": "One line — can be a joke. This appears on the landing page card.",
+  "summary": "One line - can be a joke. This appears on the landing page card.",
   "thumbnail": "/posts/[slug]/assets/thumbnail.png",
   "url": "https://anyway-i-shipped-it.com/posts/[slug]"
 }
@@ -67,51 +67,48 @@ This is the single source of truth for post metadata — do not duplicate these 
 
 ---
 
-## Content Workflow — Adding a New Post
+## Content Workflow - Adding a New Post
 
-1. Create a new folder under `/posts/[slug]`
-2. Write `post-brief.md` — label all text chunks (title, heading, body, callout) and list all non-text assets (screenshots, MP4s, SVGs, animations)
-3. Add compressed assets to `/posts/[slug]/assets/`
-4. Write `content.mdx` with the post text, referencing assets where they appear
-5. Fill in `meta.json`
-6. Open a Cursor session — point it at this file and the post's `post-brief.md`
-7. Work with Cursor to build `layout.jsx` — unique layout and animations for this post
+1. Create a new folder under `/posts/[slug]` (duplicate `posts/_template` and rename), or start from an existing post folder pattern
+2. Fill in `meta.json` - **`slug` must match the folder name**; set `thumbnail` and `url` paths; use `"published": false` until the post should appear in sorted meta
+3. Write **all** post copy in `content.mdx` (headings, paragraphs, lists; reference assets under `assets/` as needed)
+4. Add compressed assets to `/posts/[slug]/assets/` (see Video Standards below)
+5. Register the post’s `layout.jsx` in `lib/postLayouts.js` (one import + one map entry) so `/posts/[slug]` can load it
+6. Run `npm run dev`, open `/posts/[slug]`, and iterate on `layout.jsx` + motion with Cursor - see that folder’s `AGENTS.md`
+7. Optional: keep short notes or a checklist in `post-brief.md` (not required for copy)
 8. Push to GitHub → Vercel deploys automatically
-9. `latest-post.json` in `/public` is updated → triggers portfolio site rebuild
+9. `latest-post.json` in `/public` is updated → triggers portfolio site rebuild when this is the newest shipped post
 
 ---
 
 ## Post Layout Philosophy
 
 Each post has its own `layout.jsx` and is treated as a unique design project.
-Posts should feel distinct from one another — the content and assets of each post
+Posts should feel distinct from one another - the content and assets of each post
 should inform its layout and interactions, not a shared template.
 
 Shared components (video player, image frame, post navigation) live in `/components/post`
 and should be used consistently across posts. Everything else is fair game to customize.
 
-### Content Labels (used in post-brief.md and content.mdx)
+### Optional content vocabulary (in `content.mdx`)
 
-Use these labels consistently when structuring post content:
+You do **not** need a separate brief or label pass. These are optional hints for structuring MDX so layout and styling stay predictable:
 
-- `title` — the post title (also in meta.json)
-- `heading` — a section header within the post
-- `body` — standard paragraph text
-- `callout` — a highlighted aside, observation, or funny note
-- `caption` — label beneath an image, video, or diagram
-- `video` — reference to an MP4 asset
-- `image` — reference to a screenshot or illustration
-- `diagram` — reference to an SVG or animated component
+- **Title** - lives in `meta.json`; repeat in frontmatter of `content.mdx` only if useful for tooling
+- **Section headings** - normal markdown `##` / `###` in `content.mdx`
+- **Asides / callouts** - blockquotes or short paragraphs you can style from `layout.jsx`
+- **Captions** - text under an image, video, or diagram (markdown or MDX)
+- **Media** - reference MP4s, PNGs, SVGs under `assets/` with paths consistent with `meta.json` / public URL rules
 
 ---
 
 ## Video Standards
 
 - Format: MP4 (H.264), with WebM as optional fallback
-- Compress with Handbrake before adding to repo — target under 5MB per clip
+- Compress with Handbrake before adding to repo - target under 5MB per clip
 - Max recording width: 1200px
-- Embed as `<video autoPlay loop muted playsInline>` — no controls, no audio
-- Never autoplay on mobile without user interaction — add appropriate attribute handling
+- Embed as `<video autoPlay loop muted playsInline>` - no controls, no audio
+- Never autoplay on mobile without user interaction - add appropriate attribute handling
 
 ---
 
@@ -144,7 +141,7 @@ All values below are pulled directly from the heyimhelen2026 portfolio source (`
 
 ### CSS Custom Properties
 
-Define these on `:root` in the blog's global stylesheet. These are the exact values from the portfolio — do not alter them.
+Define these on `:root` in the blog's global stylesheet. These are the exact values from the portfolio - do not alter them.
 
 ```css
 :root {
@@ -173,7 +170,7 @@ Define these on `:root` in the blog's global stylesheet. These are the exact val
 
 ### Fonts
 
-#### Virgil — the hand-drawn sketch font
+#### Virgil - the hand-drawn sketch font
 
 Excalidraw's Virgil font is responsible for every element that looks hand-drawn. Load it via `@font-face` in the global stylesheet:
 
@@ -215,7 +212,7 @@ font-family: 'Virgil', 'Segoe Print', 'Comic Sans MS', cursive;
 - Footer text
 - Any SVG text labels rendered via Rough.js
 
-#### Inter — the body/UI font
+#### Inter - the body/UI font
 
 Used for any non-sketch prose or UI text. Load via Next.js `next/font/google`:
 
@@ -278,7 +275,7 @@ An alternative to the dot grid for use inside cards or panels where a subtle tex
 
 ---
 
-### Sketch Border Effect — CSS-only (no library)
+### Sketch Border Effect - CSS-only (no library)
 
 This technique is used for buttons, tags, and callouts. The double-layer border (a solid `border` plus a faint `outline` slightly outside it) creates the illusion of a slightly imperfect, hand-drawn edge without Rough.js.
 
@@ -290,7 +287,7 @@ outline: 1px solid rgba(30, 30, 30, 0.05);
 outline-offset: 1.5px;
 ```
 
-**What this produces:** The inner border is the main stroke. The outer ghost outline is barely visible but creates the impression that the line is not perfectly clean — the eye reads it as hand-drawn.
+**What this produces:** The inner border is the main stroke. The outer ghost outline is barely visible but creates the impression that the line is not perfectly clean - the eye reads it as hand-drawn.
 
 For lighter contexts (tags, secondary elements), reduce the outline opacity:
 
@@ -303,9 +300,9 @@ outline-offset: 1px;
 
 ---
 
-### Sketch Panel — Full Panel Card with Rough.js Border
+### Sketch Panel - Full Panel Card with Rough.js Border
 
-The main page panel is drawn using [Rough.js](https://roughjs.com/), which renders an SVG rectangle with a deliberately imperfect, hand-drawn stroke. This is a React component pattern — the SVG is absolutely positioned behind the content.
+The main page panel is drawn using [Rough.js](https://roughjs.com/), which renders an SVG rectangle with a deliberately imperfect, hand-drawn stroke. This is a React component pattern - the SVG is absolutely positioned behind the content.
 
 **Rough.js rectangle options used for the main `SketchPanel`:**
 
@@ -362,7 +359,7 @@ Corner mark offset from panel edge: `12px`. Corner arm length: `8px` each side.
 
 ---
 
-### Sketch Box — Smaller Card with Rough.js Border
+### Sketch Box - Smaller Card with Rough.js Border
 
 A lighter-weight version of `SketchPanel` used for individual content cards.
 
@@ -426,7 +423,7 @@ Used for hover tooltips and highlighted asides. Produces a sticky-note-style box
 
 ---
 
-### Button — Sketch Style
+### Button - Sketch Style
 
 ```css
 .btnSketch {
@@ -457,7 +454,7 @@ Used for hover tooltips and highlighted asides. Produces a sticky-note-style box
 
 ---
 
-### Link — Sketch Style
+### Link - Sketch Style
 
 ```css
 .sketchLink {
@@ -533,7 +530,7 @@ Applied to panels and elements that animate in on mount:
 
 ### Layout Constraints
 
-From the portfolio's root layout — apply the same to the blog's page wrapper:
+From the portfolio's root layout - apply the same to the blog's page wrapper:
 
 ```css
 .pageWrapper {
@@ -564,10 +561,10 @@ const rc = rough.svg(svgElement);
 ```
 
 Key parameters and what they control:
-- `roughness` — how jagged the line is. `1.0`–`1.2` is the standard range used here. Higher = more chaotic.
-- `bowing` — how much the line bows/curves between endpoints. `1.2`–`1.5` is used here.
-- `strokeWidth` — `1.5` for boxes, `1.8` for the main panel, `2.0` for colored accent boxes.
-- `fillStyle: 'solid'` — required to get a flat fill instead of hatch lines.
+- `roughness` - how jagged the line is. `1.0`–`1.2` is the standard range used here. Higher = more chaotic.
+- `bowing` - how much the line bows/curves between endpoints. `1.2`–`1.5` is used here.
+- `strokeWidth` - `1.5` for boxes, `1.8` for the main panel, `2.0` for colored accent boxes.
+- `fillStyle: 'solid'` - required to get a flat fill instead of hatch lines.
 
 For arrows and connector lines, use `roughness: 0.6`–`0.8` (straighter, but still hand-drawn).
 
@@ -575,9 +572,9 @@ For arrows and connector lines, use `roughness: 0.6`–`0.8` (straighter, but st
 
 ## Things to Never Do
 
-- Do not introduce a CMS, external content store, or third-party component library without first stopping and asking the user — explain the tradeoff clearly and wait for a decision before proceeding
+- Do not introduce a CMS, external content store, or third-party component library without first stopping and asking the user - explain the tradeoff clearly and wait for a decision before proceeding
 - Do not add npm dependencies without flagging and justifying them
-- Do not use `<img>` tags — use Next.js `<Image>` for all static images
+- Do not use `<img>` tags - use Next.js `<Image>` for all static images
 - Do not hardcode colors or fonts outside of CSS variables
-- Do not duplicate post metadata — `meta.json` is the single source of truth
-- Do not write layout assumptions into `content.mdx` — content and layout are separate
+- Do not duplicate post metadata - `meta.json` is the single source of truth
+- Prefer keeping heavy layout and motion in `layout.jsx` (and CSS modules); use `content.mdx` for copy and readable structure (headings, lists, media references)

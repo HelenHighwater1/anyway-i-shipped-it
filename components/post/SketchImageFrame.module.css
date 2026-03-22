@@ -1,0 +1,47 @@
+/* SketchBox + natural-aspect img (replaces polaroid frame). */
+
+.wrapRow {
+  width: 100%;
+  max-width: 8.5rem;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.wrapStack {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+/* Beat SketchBox default content padding; 3px reveals Rough stroke under img */
+.inner.inner {
+  padding: 3px;
+  box-sizing: border-box;
+  height: auto;
+  display: block;
+  width: 100%;
+}
+
+.slot {
+  position: relative;
+  width: 100%;
+  height: auto;
+  line-height: 0;
+}
+
+.imageRow {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 12rem;
+}
+
+.imageStack {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(50vh, 22rem);
+}

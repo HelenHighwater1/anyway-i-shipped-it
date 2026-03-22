@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import styles from './SketchPanel.module.css';
 
 /**
- * Sketch Panel Rough.js rectangle — stroke/options per BLOG_STANDARDS.md;
+ * Sketch Panel Rough.js rectangle - stroke/options per BLOG_STANDARDS.md;
  * fill is a slightly brighter white than the doc default for clearer contrast on the dot grid.
  */
 const ROUGH_RECT = {
@@ -16,14 +16,20 @@ const ROUGH_RECT = {
   fillStyle: 'solid',
 };
 
-/** Corner crosshair lines — stroke #b0aeaa per doc */
+/** Corner crosshair lines - stroke #b0aeaa per doc */
 const CORNER_LINE = {
   stroke: '#b0aeaa',
   strokeWidth: 1,
   roughness: 0.8,
 };
 
-export default function SketchPanel({ children, className = '' }) {
+export default function SketchPanel({
+  children,
+  className = '',
+  contentClassName = '',
+  /** Omit default min-height: 60vh; panel hugs content */
+  fitContent = false,
+}) {
   const wrapRef = useRef(null);
   const svgRef = useRef(null);
 
@@ -76,13 +82,23 @@ export default function SketchPanel({ children, className = '' }) {
     };
   }, []);
 
+  const innerClass = [styles.sketchPanelContent, contentClassName]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <div
       ref={wrapRef}
-      className={`${styles.sketchPanel} ${className}`.trim()}
+      className={[
+        styles.sketchPanel,
+        fitContent ? styles.sketchPanelFitContent : '',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
     >
       <svg ref={svgRef} className={styles.sketchPanelSvg} aria-hidden />
-      <div className={styles.sketchPanelContent}>{children}</div>
+      <div className={innerClass}>{children}</div>
     </div>
   );
 }

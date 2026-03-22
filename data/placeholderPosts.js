@@ -1,7 +1,6 @@
 /**
- * Temporary hardcoded posts for landing layout tests.
- * Shape matches BLOG_STANDARDS.md meta.json — swap for getSortedPostsMeta() later.
- * Thumbnail uses public SVG until a real post asset exists (same dimensions as workflow SVG).
+ * Sample shape for Storybook / one-off tests. The home page and /posts use
+ * getSortedPostsMeta() from lib/posts.js (published posts under posts/).
  */
 export const PLACEHOLDER_POSTS = [
   {
@@ -9,7 +8,7 @@ export const PLACEHOLDER_POSTS = [
     title: 'Example Post Title',
     date: '2026-03-01',
     summary:
-      'One line placeholder summary — swap when real posts ship.',
+      'One line placeholder summary - swap when real posts ship.',
     thumbnail: '/application-workflow.svg',
     url: 'https://anyway-i-shipped-it.com/posts/example-post',
   },

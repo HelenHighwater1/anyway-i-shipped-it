@@ -1,4 +1,4 @@
-/* Inline Excalidraw SVG — responsive container */
+/* Inline Excalidraw SVG - responsive container */
 
 .wrap {
   width: 100%;
@@ -8,7 +8,7 @@
 /**
  * Opacity lives on a WRAPPER, not on the same node as dangerouslySetInnerHTML.
  * That keeps innerHTML props stable (memoized object) so React does not replace
- * the SVG subtree when svgPrepared flips — groupsRef stays attached to painted nodes.
+ * the SVG subtree when svgPrepared flips - groupsRef stays attached to painted nodes.
  */
 .hostClip {
   width: 100%;

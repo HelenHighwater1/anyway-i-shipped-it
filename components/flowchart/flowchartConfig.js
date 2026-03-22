@@ -6,7 +6,7 @@
 export const DEFAULT_VIEW_W = 1000;
 export const DEFAULT_VIEW_H = 320;
 
-/** BLOG_STANDARDS — SketchBox-style; per-node boxStroke/boxFill optional */
+/** BLOG_STANDARDS - SketchBox-style; per-node boxStroke/boxFill optional */
 export const DEFAULT_BOX_OPTS = {
   stroke: '#1e1e1e',
   strokeWidth: 1.5,

@@ -1,10 +1,15 @@
-/* BLOG_STANDARDS.md — Hover lift on interactive card */
+/* BLOG_STANDARDS.md - Hover lift on interactive card */
 
 .cardLink {
   display: block;
   text-decoration: none;
   color: inherit;
   transition: transform 0.12s ease;
+}
+
+/* Fills grid row height on desktop so inner flex can vertically center */
+.cardLinkRow {
+  height: 100%;
 }
 
 .cardLink:hover {
@@ -15,8 +20,55 @@
   height: 100%;
 }
 
+/* SketchBox root: column flex so content area can grow and center the row */
+.cardInnerRow {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.sketchContentRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
 .thumbWrap {
   margin-bottom: 1rem;
+}
+
+.thumbWrapRow {
+  position: relative;
+  flex-shrink: 0;
+  max-width: 8.5rem;
+  width: max-content;
+  margin-bottom: 0;
+  align-self: center;
+  z-index: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.thumbWrapRow > * {
+  flex: 0 0 auto;
+  max-width: 100%;
+}
+
+.metaCol {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+  align-self: center;
+}
+
+.sketchContentRow .title {
+  margin-top: 0;
 }
 
 .title {

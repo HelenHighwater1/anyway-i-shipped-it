@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import styles from './SketchBox.module.css';
 
-/** BLOG_STANDARDS.md — SketchBox Rough.js rectangle options */
+/** BLOG_STANDARDS.md - SketchBox Rough.js rectangle options */
 const ROUGH_RECT = {
   stroke: '#1e1e1e',
   strokeWidth: 1.5,
@@ -13,7 +13,14 @@ const ROUGH_RECT = {
   fillStyle: 'solid',
 };
 
-export default function SketchBox({ children, className = '', strokeColor }) {
+export default function SketchBox({
+  children,
+  className = '',
+  contentClassName = '',
+  strokeColor,
+  /** No cream tint inside the stroke (e.g. thumbs flush to the image) */
+  transparentSketchFill = false,
+}) {
   const wrapRef = useRef(null);
   const svgRef = useRef(null);
 
@@ -40,10 +47,11 @@ export default function SketchBox({ children, className = '', strokeColor }) {
         svgEl.setAttribute('height', String(height));
         while (svgEl.firstChild) svgEl.removeChild(svgEl.firstChild);
 
-        const opts =
-          strokeColor != null
-            ? { ...ROUGH_RECT, stroke: strokeColor }
-            : ROUGH_RECT;
+        const opts = {
+          ...ROUGH_RECT,
+          ...(transparentSketchFill ? { fill: 'transparent' } : {}),
+          ...(strokeColor != null ? { stroke: strokeColor } : {}),
+        };
 
         const rc = rough.svg(svgEl);
         svgEl.appendChild(rc.rectangle(2, 2, width - 4, height - 4, opts));
@@ -58,12 +66,16 @@ export default function SketchBox({ children, className = '', strokeColor }) {
       cancelAnimationFrame(frame);
       ro.disconnect();
     };
-  }, [strokeColor]);
+  }, [strokeColor, transparentSketchFill]);
 
   return (
     <div ref={wrapRef} className={`${styles.sketchBox} ${className}`.trim()}>
       <svg ref={svgRef} className={styles.sketchBoxSvg} aria-hidden />
-      <div className={styles.sketchBoxContent}>{children}</div>
+      <div
+        className={`${styles.sketchBoxContent} ${contentClassName}`.trim()}
+      >
+        {children}
+      </div>
     </div>
   );
 }

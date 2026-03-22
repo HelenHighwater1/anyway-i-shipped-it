@@ -1,32 +1,44 @@
 import Link from 'next/link';
 import SketchBox from '@/components/ui/SketchBox';
-import PolaroidFrame from '@/components/post/PolaroidFrame';
+import SketchImageFrame from '@/components/post/SketchImageFrame';
 import styles from './PostCard.module.css';
-
-/** Thumbnail display size for PolaroidFrame / next/image (aspect matches workflow SVG 936×426). */
-const THUMB_WIDTH = 468;
-const THUMB_HEIGHT = 213;
-
 /**
  * @param {{ slug: string, title: string, date: string, summary: string, thumbnail: string }} post
+ * @param {'stack' | 'row'} [variant] stack = image on top (archive); row = square thumb left (home recent)
  */
-export default function PostCard({ post }) {
+export default function PostCard({ post, variant = 'stack' }) {
   const href = `/posts/${post.slug}`;
+  const isRow = variant === 'row';
 
   return (
-    <Link href={href} className={styles.cardLink}>
-      <SketchBox className={styles.cardInner}>
-        <div className={styles.thumbWrap}>
-          <PolaroidFrame
+    <Link
+      href={href}
+      className={`${styles.cardLink} ${isRow ? styles.cardLinkRow : ''}`}
+    >
+      <SketchBox
+        className={`${styles.cardInner} ${isRow ? styles.cardInnerRow : ''}`}
+        contentClassName={isRow ? styles.sketchContentRow : ''}
+      >
+        <div className={isRow ? styles.thumbWrapRow : styles.thumbWrap}>
+          <SketchImageFrame
             src={post.thumbnail}
             alt={post.title}
-            width={THUMB_WIDTH}
-            height={THUMB_HEIGHT}
+            variant={isRow ? 'row' : 'stack'}
           />
         </div>
-        <h3 className={styles.title}>{post.title}</h3>
-        <p className={styles.date}>{post.date}</p>
-        <p className={styles.summary}>{post.summary}</p>
+        {isRow ? (
+          <div className={styles.metaCol}>
+            <h3 className={styles.title}>{post.title}</h3>
+            <p className={styles.date}>{post.date}</p>
+            <p className={styles.summary}>{post.summary}</p>
+          </div>
+        ) : (
+          <>
+            <h3 className={styles.title}>{post.title}</h3>
+            <p className={styles.date}>{post.date}</p>
+            <p className={styles.summary}>{post.summary}</p>
+          </>
+        )}
       </SketchBox>
     </Link>
   );

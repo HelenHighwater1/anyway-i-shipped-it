@@ -1,8 +1,13 @@
-/* BLOG_STANDARDS.md — Sketch Panel container structure */
+/* BLOG_STANDARDS.md - Sketch Panel container structure */
 
 .sketchPanel {
   position: relative;
   min-height: 60vh;
+}
+
+/* Panels that should only be as tall as their content (e.g. home recent posts) */
+.sketchPanelFitContent {
+  min-height: unset;
 }
 
 .sketchPanelSvg {

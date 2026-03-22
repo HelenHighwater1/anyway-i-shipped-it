@@ -1,0 +1,57 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .pageWrapper {
+    padding-bottom: 2rem;
+  }
+}
+
+.sketchPanel {
+  width: 100%;
+}
+
+.panelTextBuffer {
+  padding-inline: 0;
+}
+
+@media (min-width: 768px) {
+  .panelTextBuffer {
+    padding-inline: 2rem;
+  }
+}
+
+.postsSection {
+  margin-top: 0;
+}
+
+.postsHeading {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-sketch);
+  font-size: 1.5rem;
+  font-weight: normal;
+  color: var(--sketch-text);
+}
+
+.postGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .postGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.empty {
+  margin: 0;
+  font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  color: var(--sketch-text-muted);
+}

@@ -455,7 +455,7 @@ export default function FlowchartEditorClient() {
           {exportText ? (
             <>
               <p className={styles.hint}>
-                Snippet also appears below — select all if clipboard was
+                Snippet also appears below - select all if clipboard was
                 blocked.
               </p>
               <textarea

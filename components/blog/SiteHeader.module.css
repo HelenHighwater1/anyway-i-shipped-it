@@ -1,0 +1,41 @@
+/* Matches home header (app/page.module.css) for cross-page consistency */
+
+.header {
+  margin-bottom: 1rem;
+}
+
+.titleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.65rem;
+  margin-bottom: 0.5rem;
+}
+
+.siteTitle {
+  margin: 0;
+  font-family: var(--font-sketch);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: normal;
+  letter-spacing: -0.02em;
+  color: var(--sketch-text);
+  line-height: 1.2;
+}
+
+/* Scaled from public/shrug.png (936×254) - sits inline after the title */
+.titleShrug {
+  width: auto;
+  height: clamp(2.85rem, 10vw, 4.25rem);
+  max-width: min(58vw, 360px);
+  object-fit: contain;
+  display: block;
+}
+
+.tagline {
+  margin: 0;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--sketch-text-muted);
+  line-height: 1.5;
+}

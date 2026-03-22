@@ -1,0 +1,88 @@
+/* Framed article inside SketchPanel - matches sketch tokens (globals.css) */
+
+.frameRoot {
+  max-width: min(50rem, 100%);
+  margin: 0 auto;
+  /* Pull section titles left of the body copy measure (paragraphs/lists unchanged) */
+  --heading-outdent: 1.1rem;
+}
+
+@media (min-width: 768px) {
+  .frameRoot {
+    --heading-outdent: 1.75rem;
+  }
+}
+
+/* Applied via SketchPanel contentClassName - tighter inset than default */
+.postSketchContent {
+  --sketch-panel-padding-x: 1rem;
+  padding: 1.25rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .postSketchContent {
+    --sketch-panel-padding-x: 1rem;
+    padding: 2rem 1rem;
+  }
+}
+
+.postTitle {
+  margin: 0 0 1.25rem;
+  text-align: center;
+  font-family: var(--font-sketch);
+  font-size: clamp(2rem, 4.5vw, 2.65rem);
+  font-weight: normal;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--sketch-text);
+}
+
+.frameRoot :global(h2) {
+  margin-top: 1.75rem;
+  margin-bottom: 0.65rem;
+  margin-left: calc(-1 * var(--heading-outdent));
+  font-family: var(--font-sketch);
+  font-size: clamp(1.15rem, 3.1vw, 1.42rem);
+  font-weight: normal;
+  color: var(--sketch-text);
+  line-height: 1.25;
+}
+
+.frameRoot :global(.mdxBody > h2:first-child) {
+  margin-top: 0;
+}
+
+.frameRoot :global(p) {
+  margin: 0 0 1rem;
+  font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--sketch-text);
+}
+
+.frameRoot :global(ul),
+.frameRoot :global(ol) {
+  margin: 0 0 1rem 1.25rem;
+  padding: 0;
+  font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--sketch-text);
+}
+
+.frameRoot :global(li) {
+  margin-bottom: 0.35rem;
+}
+
+.frameRoot :global(strong) {
+  font-weight: 600;
+}
+
+.frameRoot :global(a) {
+  color: var(--sketch-blue);
+  text-underline-offset: 0.15em;
+}
+
+.postPanel {
+  margin-top: 0.5rem;
+}

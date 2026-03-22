@@ -41,8 +41,8 @@ const NODES = [
   {
     id: 'posts',
     label: 'all posts',
-    kind: 'anchor',
-    elementId: 'posts-heading',
+    kind: 'route',
+    href: '/posts',
     boxW: { desktop: 106, mobile: 82 },
     accent: ACCENT.green,
   },
@@ -108,12 +108,15 @@ export default function BlogNav({ className = '' }) {
       const rc = rough.svg(svg);
 
       const isHomeActive = currentPath === '/';
+      const isPostsIndexActive = currentPath === '/posts';
 
       let x = offsetX;
 
       NODES.forEach((node, i) => {
         const boxW = widths[i];
-        const isActive = node.id === 'home' && isHomeActive;
+        const isActive =
+          (node.id === 'home' && isHomeActive) ||
+          (node.id === 'posts' && isPostsIndexActive);
         const { stroke, idleFill, hoverFill, activeFill } = node.accent;
 
         const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
@@ -247,7 +250,7 @@ export default function BlogNav({ className = '' }) {
   return (
     <nav
       ref={containerRef}
-      className={`${styles.nav} ${className}`.trim()}
+      className={[styles.nav, className].filter(Boolean).join(' ')}
       aria-label="Site navigation"
     >
       <svg ref={svgRef} className={styles.svg} />

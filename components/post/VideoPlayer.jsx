@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import styles from './VideoPlayer.module.css';
 
 /**
- * BLOG_STANDARDS.md — MP4: autoPlay, loop, muted, playsInline, no controls.
+ * BLOG_STANDARDS.md - MP4: autoPlay, loop, muted, playsInline, no controls.
  * On viewports under 768px, autoplay is disabled (resize-aware) per mobile guidance.
  */
 export default function VideoPlayer({
