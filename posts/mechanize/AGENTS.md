@@ -15,7 +15,7 @@ Work **inside this post folder** (`layout.jsx`, optional colocated `*.module.css
 
 ## Collaborative loop (localhost)
 
-- The human runs **`npm run dev`** and opens **`/posts/{folder-name}`** to preview.
+- The human runs **`npm run dev`** and opens **`/posts/{folder-name}`** (e.g. **`/posts/mechanize`**) to preview.
 - Treat layout as **iterative**: propose small changes, adjust motion (Framer Motion), typography, and asset placement based on what they see.
 - If direction is unclear, **ask** one concrete question (e.g. polaroid frames vs full-width) instead of inventing a full design.
 - If multiple sketch-aesthetic options are valid, offer **two** short options (what changes, motion/complexity tradeoff) and let them pick.

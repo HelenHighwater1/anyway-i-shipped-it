@@ -33,7 +33,7 @@
 }
 
 .postTitle {
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.35rem;
   text-align: center;
   font-family: var(--font-sketch);
   font-size: clamp(2rem, 4.5vw, 2.65rem);
@@ -41,6 +41,16 @@
   letter-spacing: -0.02em;
   line-height: 1.15;
   color: var(--sketch-text);
+}
+
+.postDate {
+  margin: 0 0 1.25rem;
+  text-align: center;
+  font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: normal;
+  line-height: 1.35;
+  color: var(--sketch-text-muted);
 }
 
 .frameRoot :global(h2) {

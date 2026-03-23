@@ -10,6 +10,7 @@ import MdxPostVideo from '@/components/post/MdxPostVideo';
 import PostNav from '@/components/post/PostNav';
 import { SITE_TITLE } from '@/lib/site';
 import { getPostLayout } from '@/lib/postLayouts';
+import { formatPostDate } from '@/lib/posts';
 import styles from './page.module.css';
 
 const POSTS_DIR = path.join(process.cwd(), 'posts');
@@ -80,16 +81,18 @@ export default async function PostPage({ params }) {
 
   if (!fs.existsSync(contentPath) || !fs.existsSync(metaPath)) notFound();
 
-  const PostLayout = getPostLayout(slug);
-  if (!PostLayout) notFound();
-
   let postTitle = slug;
+  let displayDate = null;
   try {
     const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
     if (meta?.title) postTitle = String(meta.title);
+    displayDate = formatPostDate(meta?.date);
   } catch {
-    /* keep slug */
+    notFound();
   }
+
+  const PostLayout = getPostLayout(slug);
+  if (!PostLayout) notFound();
 
   const raw = fs.readFileSync(contentPath, 'utf8');
 
@@ -113,7 +116,7 @@ export default async function PostPage({ params }) {
 
   return (
     <div className={styles.page}>
-      <PostLayout title={postTitle}>
+      <PostLayout title={postTitle} date={displayDate}>
         <div className={styles.mdxBody}>{mdxContent}</div>
       </PostLayout>
       <PostNav slug={slug} className={styles.nav} />

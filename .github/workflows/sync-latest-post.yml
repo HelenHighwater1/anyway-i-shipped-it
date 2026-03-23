@@ -1,0 +1,99 @@
+# When posts change on main, sync latest-post.json to the heyimhelen portfolio and
+# trigger a Vercel deploy hook. Requires repository secrets:
+#   PORTFOLIO_GITHUB_TOKEN — PAT with contents:write on the portfolio repo
+#   VERCEL_DEPLOY_HOOK_URL — Vercel deploy hook for the portfolio project
+#
+# Edit PORTFOLIO_REPOSITORY below if your portfolio repo differs.
+
+name: Sync latest post to portfolio
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "posts/**"
+      - "public/latest-post.json"
+      - "scripts/sync-latest-post.mjs"
+      - ".github/workflows/sync-latest-post.yml"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  BLOG_SITE_ORIGIN: https://anyway-i-shipped-it.com
+  # Portfolio repo that receives public/latest-post.json (owner/name)
+  PORTFOLIO_REPOSITORY: HelenHighwater1/heyimhelen2026
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compute latest post JSON
+        env:
+          PORTFOLIO_JSON_OUT: ${{ runner.temp }}/portfolio-latest-post.json
+        run: node scripts/sync-latest-post.mjs
+
+      - name: Commit blog public/latest-post.json if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/latest-post.json
+          if git diff --staged --quiet; then
+            echo "No changes to blog public/latest-post.json"
+          else
+            git commit -m "chore: sync latest-post.json from post meta [skip ci]"
+            git push
+          fi
+
+      - name: Push latest-post.json to portfolio repo
+        env:
+          PORTFOLIO_TOKEN: ${{ secrets.PORTFOLIO_GITHUB_TOKEN }}
+          PORTFOLIO_FILE: ${{ runner.temp }}/portfolio-latest-post.json
+        run: |
+          set -euo pipefail
+          if [ -z "${PORTFOLIO_TOKEN:-}" ]; then
+            echo "::error::Set the PORTFOLIO_GITHUB_TOKEN repository secret (PAT with contents:write on the portfolio repo)."
+            exit 1
+          fi
+          REPO="${PORTFOLIO_REPOSITORY}"
+          FILE="${PORTFOLIO_FILE}"
+          HTTP_CODE=$(curl -sS -o /tmp/gh_latest_contents.json -w "%{http_code}" \
+            -H "Authorization: Bearer ${PORTFOLIO_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${REPO}/contents/public/latest-post.json")
+          SHA=""
+          if [ "${HTTP_CODE}" = "200" ]; then
+            SHA=$(jq -r '.sha // empty' /tmp/gh_latest_contents.json)
+          elif [ "${HTTP_CODE}" != "404" ]; then
+            echo "::error::GitHub API returned HTTP ${HTTP_CODE} when fetching portfolio latest-post.json"
+            cat /tmp/gh_latest_contents.json
+            exit 1
+          fi
+          BODY=$(jq -n \
+            --arg msg "chore: sync latest-post.json from anyway-i-shipped-it blog" \
+            --rawfile c "$FILE" \
+            --arg sha "$SHA" \
+            '($c | @base64) as $b64 | {message: $msg, content: $b64} + (if ($sha | length) > 0 then {sha: $sha} else {} end)')
+          curl -fsSL -X PUT \
+            -H "Authorization: Bearer ${PORTFOLIO_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${REPO}/contents/public/latest-post.json" \
+            -d "$BODY"
+
+      - name: Trigger Vercel deploy hook
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "${VERCEL_DEPLOY_HOOK_URL:-}" ]; then
+            echo "::warning::VERCEL_DEPLOY_HOOK_URL secret is not set; skipping deploy hook."
+            exit 0
+          fi
+          curl -fsSL -X POST "${VERCEL_DEPLOY_HOOK_URL}"

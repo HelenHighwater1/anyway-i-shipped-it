@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "sync-workflow-svg": "node scripts/sync-application-workflow-svg.mjs"
+    "sync-workflow-svg": "node scripts/sync-application-workflow-svg.mjs",
+    "sync-latest-post": "node scripts/sync-latest-post.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { getAdjacentPosts } from '@/lib/posts';
+import { getAdjacentPosts, getPostHref } from '@/lib/posts';
 import styles from './PostNav.module.css';
 
 /**
- * Previous / next links from sorted meta under each `posts/[slug]/` folder (newest first).
+ * Previous / next links from sorted meta (newest first).
  */
 export default function PostNav({ slug, className = '' }) {
   const { prev, next } = getAdjacentPosts(slug);
@@ -14,14 +14,14 @@ export default function PostNav({ slug, className = '' }) {
   return (
     <nav className={navClass} aria-label="Post navigation">
       {prev ? (
-        <Link href={'/posts/' + prev.slug} className={styles.sketchLink}>
+        <Link href={getPostHref(prev)} className={styles.sketchLink}>
           Previous: {prev.title}
         </Link>
       ) : (
         <span />
       )}
       {next ? (
-        <Link href={'/posts/' + next.slug} className={styles.sketchLink}>
+        <Link href={getPostHref(next)} className={styles.sketchLink}>
           Next: {next.title}
         </Link>
       ) : (

@@ -13,6 +13,8 @@ const MIME = {
   '.webm': 'video/webm',
 };
 
+const POSTS_DIR = path.join(process.cwd(), 'posts');
+
 function isValidSlug(slug) {
   if (!slug || typeof slug !== 'string') return false;
   if (slug.startsWith('_') || slug.startsWith('.')) return false;
@@ -35,7 +37,7 @@ export async function GET(_request, context) {
     return new NextResponse(null, { status: 404 });
   }
 
-  const assetsRoot = path.join(process.cwd(), 'posts', slug, 'assets');
+  const assetsRoot = path.join(POSTS_DIR, slug, 'assets');
   const filePath = path.join(assetsRoot, ...segments);
   const resolvedRoot = path.resolve(assetsRoot) + path.sep;
   const resolvedFile = path.resolve(filePath);

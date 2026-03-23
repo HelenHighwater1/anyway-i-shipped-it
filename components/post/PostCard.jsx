@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import SketchBox from '@/components/ui/SketchBox';
 import SketchImageFrame from '@/components/post/SketchImageFrame';
+import { getPostHref } from '@/lib/posts';
 import styles from './PostCard.module.css';
 /**
  * @param {{ slug: string, title: string, date: string, summary: string, thumbnail: string }} post
  * @param {'stack' | 'row'} [variant] stack = image on top (archive); row = square thumb left (home recent)
  */
 export default function PostCard({ post, variant = 'stack' }) {
-  const href = `/posts/${post.slug}`;
+  const href = getPostHref(post);
   const isRow = variant === 'row';
 
   return (

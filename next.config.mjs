@@ -1,3 +1,5 @@
+import { getLegacyDatedUrlRedirects } from './lib/posts.js';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -12,6 +14,17 @@ const nextConfig = {
         search: '',
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/posts/:slug/assets/:path*',
+        destination: '/api/post-assets/:slug/:path*',
+      },
+    ];
+  },
+  async redirects() {
+    return getLegacyDatedUrlRedirects();
   },
 };
 
