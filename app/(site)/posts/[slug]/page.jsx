@@ -3,6 +3,9 @@ import path from 'path';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { compileMDX } from 'next-mdx-remote/rsc';
+import MdxCenterFigure from '@/components/post/MdxCenterFigure';
+import MdxMediaAside from '@/components/post/MdxMediaAside';
+import MdxPostVideo from '@/components/post/MdxPostVideo';
 import PostNav from '@/components/post/PostNav';
 import { SITE_TITLE } from '@/lib/site';
 import { getPostLayout } from '@/lib/postLayouts';
@@ -96,6 +99,9 @@ export default async function PostPage({ params }) {
       options: { parseFrontmatter: true },
       components: {
         img: MdxImage,
+        MdxCenterFigure,
+        MdxMediaAside,
+        MdxPostVideo,
       },
     });
     mdxContent = compiled.content;

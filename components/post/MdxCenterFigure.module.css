@@ -1,0 +1,25 @@
+.root {
+  margin: 0 auto 1rem;
+  max-width: min(36rem, 100%);
+  text-align: center;
+}
+
+.rootLarge {
+  max-width: min(48rem, 100%);
+}
+
+.frameWrap {
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+}
+
+.caption {
+  margin: 0.5rem 0 0;
+  padding: 0 0.15rem;
+  font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--sketch-text-muted);
+}

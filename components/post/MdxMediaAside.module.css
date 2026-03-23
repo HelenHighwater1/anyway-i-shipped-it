@@ -1,0 +1,76 @@
+.root {
+  margin: 0 0 1rem;
+}
+
+.lead {
+  min-width: 0;
+}
+
+/* Float region: mobile stacks prose, then image + caption */
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.prose {
+  order: 1;
+  min-width: 0;
+}
+
+.media {
+  order: 2;
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.caption {
+  margin: 0.5rem 0 0;
+  padding: 0 0.15rem;
+  font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--sketch-text-muted);
+}
+
+@media (min-width: 768px) {
+  .aside {
+    display: flow-root;
+    gap: 0;
+  }
+
+  .prose {
+    order: unset;
+  }
+
+  /* ~15% narrower than prior 42% / 18rem so aside images read slightly smaller */
+  .media {
+    order: unset;
+    width: min(35.7%, 15.3rem);
+    max-width: 35.7%;
+  }
+
+  .mediaRight {
+    float: right;
+    margin: 0 0 0.75rem 1.25rem;
+  }
+
+  .mediaLeft {
+    float: left;
+    margin: 0 1.25rem 0.75rem 0;
+  }
+
+  /* Thumbnail / favicon strip: noticeably narrower than default aside */
+  .mediaSmall {
+    width: min(22%, 6rem);
+    max-width: 22%;
+  }
+
+  /* Wider float than default (e.g. tall full-page screenshots) */
+  .mediaWide {
+    width: min(45%, 20rem);
+    max-width: 45%;
+  }
+}

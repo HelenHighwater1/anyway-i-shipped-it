@@ -7,9 +7,15 @@ description: "I redesigned a company's website to get a job there (spoiler: it d
 
 This story begins on a Friday morning in late February, 2026. I was going through my job alert emails and saw Indeed was pushing a job for a Junior SWE from a company called Mechanize. The job description seemed like a pretty good fit, and it sounded like a cool interesting space to work in… not to mention the salary for a junior was **massive**. Needless to say- I was highly motivated to stand out. I started doing my usual due diligence- combing through their website to learn more about them and what they are after.
 
+<MdxMediaAside
+  src="/posts/mechanize/assets/mechanize-home-screen.png"
+  alt="Mechanize company website home page: minimal black serif text on pure white, single column, no navigation or imagery"
+  caption="This is a screen shot of their actual site. See what I mean?"
+>
 One thing about them to note- their website is bare bones. I'm talking single-column, left-aligned text, no navbar, no hero, serif typing, no CSS, actual white background (like #fff white, not off-white), pure black text. I completely understand that the brutalist design was intentional- they are a cutting edge company, they want to project that the styling doesn't matter- they are serious, they do _real_ tech work.
 
 The more I clicked through though, the more I considered what I would do differently in terms of styling. And fiddling with my resume and writing those intro LinkedIn messages is the absolute f******cking worst. So, what harm could come from spending 30 minutes spinning up a quick HTML project to play around with styling? I needed a creative outlet, and AI makes these kinds of things so fast.
+</MdxMediaAside>
 
 ## What I noticed poking around their site
 
@@ -22,26 +28,61 @@ My initial analysis of their website before I started coding:
 
 I wanted to keep the redesign fairly minimal- it should be all about the articles and text. It should feel both serious and classic/timeless. I wanted to make it more dynamic, with mobile optimization, but keep it so that everything feels intentional and purposefully incorporated.
 
-Another thing I noticed was their contact page had two email addresses listed, but they were “click to reveal email”. It seemed unusual, so I opened up the inspector because the super suspicious person in me was like “is this going to do something nefarious?”. Turns out they had a function called ``showEmai'l`` that stored the components of their email addresses as a list and then joined them. They even had a nice little comment by it "constructed to avoid scraping". Ok- so not nefarious, but cool and an interesting consideration.
+Another thing I noticed was their contact page had two email addresses listed, but they were “click to reveal email”. It seemed unusual, so I opened up the inspector because the super suspicious person in me was like “is this going to do something nefarious?”. Turns out they had a function called ``showEmail`` that stored the components of their email addresses as a list and then joined them. They even had a nice little comment by it "constructed to avoid scraping". Ok- so not nefarious, but cool and an interesting consideration.
+
+<MdxCenterFigure
+  src="/posts/mechanize/assets/nifty.png"
+  alt="Developer tools view of JavaScript that joins email address fragments for click-to-reveal on Mechanize contact page"
+  caption="nifty..... but does anyone else spot an issue with this?"
+/>
 
 While I had the inspector open anyways, I noticed they used a tool called Hugo- a quick search told me that was a super fast static site generator. So their website was static HTML- fast, cheap, no code execution needed. Seemed lean, reliable, and possibly good for SEO, although I doubt that was their focus.
 
 ## Decisions, decisions
 
+<MdxMediaAside
+  src="/posts/mechanize/assets/wireframe.svg"
+  alt="Hand-drawn wireframe of single-page layout: header with logo and name, home and essays column, main content area, footer with contact and backers"
+>
+
 Welp- now I was in too deep. I wanted to not only give them a new style, but also challenge myself with considering how to do this while keeping their priorities- preventing web scraping, independent URLs for articles while including them on my single-page design, and simultaneously doing static HTML for quick, reliable, simple builds. Challenge accepted (obviously with Cursor's help).
 
 I had an idea about the layout. Before starting anything at all though, I had an ask-only chat session with Cursor (it's been a while, so I don't recall if I had an LLM version selected or if it was on auto). We discussed:
+
+</MdxMediaAside>
 
 - Tradeoffs between Hugo/static pages and SPA
   - Is there a clean way to get the SPA feel without giving up the SEO and URL benefits of static?
 - What's the most efficient way to grab all the content with correct tags and links intact? Can Cursor or Claude help me with that in a way that is completely accurate and does not vary at all from the original content?
 - What does it actually take to do SEO and social previews right on a static site?
-- Is the array joining the best way to prevent scraping?
-- Given all of this, what's the best stack that keeps all the priorities listed, and keeps it clean and maintainable?
+- To prevent web scraping: does the fact that they actually include the email in the comment render the web scraping step useless?  And is the array joining the best way to prevent scraping?
+  - I ended up using a different method obfuscation, but it turns out neither of the methods are effective against modern bots.
+  - I *did* take out their full emails that were included in the comments section though. (in the "showEmail" screenshot above)
+- Given all of the considerations, what's the best stack that keeps all the priorities listed, and keeps it clean and maintainable?
 
-I described the layout, fonts, color scheme, etc., and had it build out the plan and execute. Now, this was a month ago, and I don't recall exactly what tweaks I made, but I think it was pretty close and it was mostly user experience tweaks. After it was wrapped up, I opened a new cursor agent and asked it to evaluate the code for anything deprecated, anything redundant, and just generally making sure it was clean and efficient. Back in agent mode, I asked it to clean up anything listed. I ran through the changes, checked the local host, and after verifying that nothing was broken, I did it again. The second time it felt like Cursor was grasping at straws- I think it made one or two very optional suggestions but nothing seemed worth making further changes.
+<MdxMediaAside
+  side="left"
+  size="wide"
+  splitLead
+  src="/posts/mechanize/assets/mechanize-full-page.png"
+  alt="Full-page screenshot of the redesigned Mechanize site in a browser window"
+  caption="et volia!"
+>
+
+I described the layout, fonts, color scheme, etc., and had Cursor build out the plan and execute.
+
+Now, this was a month ago, and I don't recall exactly what tweaks I made, but I think it was pretty close and it was mostly user experience tweaks. After it was wrapped up, I opened a new cursor agent and asked it to evaluate the code for anything deprecated, anything redundant, and just generally making sure it was clean and efficient. Back in agent mode, I asked it to clean up anything listed. I ran through the changes, checked the local host, and after verifying that nothing was broken, I did it again. The second time it felt like Cursor was grasping at straws- I think it made one or two very optional suggestions but nothing seemed worth making further changes.
+
+</MdxMediaAside>
 
 One final thing I did that drove me absolutely crazy on their original site- I converted their logo to an SVG with a clear background so that it looked great as the Favicon, and was able to use it on the header too.
+
+<MdxCenterFigure
+  src="/posts/mechanize/assets/favicon_comparison.png"
+  alt="Comparison of original Mechanize favicon versus redesigned SVG favicon in browser chrome"
+  caption="The favicon upgrade was so satisfying!"
+  size="large"
+/>
 
 ## Deliverance
 
@@ -54,3 +95,5 @@ Now to send it. I intentionally did not put it on GitHub- after all, I was using
 That went out around 5pm that same day. My rejection came the next day- Saturday- at almost the same time. I feel like it is safe to assume that it was based on the email / website redesign given the timing, but we will never know. On the bright side- it was a fun exercise, and I did learn quite a bit!
 
 And thus began my new strategy. So far, not at all effective for jobs, but engaging for me.
+
+<MdxPostVideo src="/posts/mechanize/assets/mechanize%20glow-up.mp4" />

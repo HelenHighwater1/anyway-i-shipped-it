@@ -4,7 +4,7 @@ import styles from './SketchImageFrame.module.css';
 /**
  * Thumbnail in a Rough.js SketchBox (no polaroid mat). Image keeps natural aspect ratio.
  *
- * @param {'row' | 'stack'} [variant] row = narrow home recent; stack = full card width archive
+ * @param {'row' | 'stack' | 'stackLarge' | 'aside' | 'asideWide' | 'asideCompact'} [variant]
  */
 export default function SketchImageFrame({
   src,
@@ -13,8 +13,26 @@ export default function SketchImageFrame({
   className = '',
   priority = false,
 }) {
-  const wrapClass = variant === 'row' ? styles.wrapRow : styles.wrapStack;
-  const imageClass = variant === 'row' ? styles.imageRow : styles.imageStack;
+  const wrapClass =
+    variant === 'row'
+      ? styles.wrapRow
+      : variant === 'aside' ||
+          variant === 'asideWide' ||
+          variant === 'asideCompact'
+        ? styles.wrapAside
+        : styles.wrapStack;
+  const imageClass =
+    variant === 'row'
+      ? styles.imageRow
+      : variant === 'asideCompact'
+        ? styles.imageAsideCompact
+        : variant === 'asideWide'
+          ? styles.imageAsideWide
+          : variant === 'aside'
+            ? styles.imageAside
+            : variant === 'stackLarge'
+              ? styles.imageStackLarge
+              : styles.imageStack;
 
   return (
     <SketchBox

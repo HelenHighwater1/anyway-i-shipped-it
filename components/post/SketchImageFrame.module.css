@@ -14,6 +14,14 @@
   box-sizing: border-box;
 }
 
+/* Right-rail / MDX aside: full column width, taller than stack */
+.wrapAside {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
 /* Beat SketchBox default content padding; 3px reveals Rough stroke under img */
 .inner.inner {
   padding: 3px;
@@ -44,4 +52,45 @@
   height: auto;
   max-width: 100%;
   max-height: min(50vh, 22rem);
+}
+
+.imageStackLarge {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(62vh, 30rem);
+  object-fit: contain;
+  object-position: center;
+}
+
+.imageAside {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: min(60vh, 32rem);
+  object-fit: contain;
+  object-position: top center;
+}
+
+.imageAsideWide {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: min(72vh, 40rem);
+  object-fit: contain;
+  object-position: top center;
+}
+
+/* Narrow MDX aside: small thumbnails / favicon strips */
+.imageAsideCompact {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: min(28vh, 9rem);
+  object-fit: contain;
+  object-position: top center;
 }
