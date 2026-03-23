@@ -118,7 +118,7 @@ export default function BlogNav({ className = '' }) {
         const isActive =
           (node.id === 'home' && isHomeActive) ||
           (node.id === 'posts' && isPostsIndexActive);
-        const { stroke, idleFill, hoverFill, activeFill } = node.accent;
+        const { stroke, idleFill, hoverFill } = node.accent;
 
         const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         group.style.transition = 'transform 0.12s ease';

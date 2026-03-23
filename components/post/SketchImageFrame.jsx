@@ -37,7 +37,7 @@ export default function SketchImageFrame({
   return (
     <SketchBox
       className={`${wrapClass} ${className}`.trim()}
-      contentClassName={`${styles.inner} ${styles.inner}`}
+      contentClassName={styles.inner}
       transparentSketchFill
     >
       <div className={styles.slot}>
