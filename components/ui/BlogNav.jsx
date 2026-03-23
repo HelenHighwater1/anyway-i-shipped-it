@@ -27,6 +27,7 @@ const ACCENT = {
 };
 
 const ARROW_STROKE = '#b0aeaa';
+const PANEL_FILL = 'rgba(255, 255, 255, 0.78)';
 
 /** Per-label box widths so longer copy fits (portfolio used fixed 90×38) */
 const NODES = [
@@ -128,7 +129,7 @@ export default function BlogNav({ className = '' }) {
         hoverBg.setAttribute('width', String(boxW));
         hoverBg.setAttribute('height', String(boxH));
         hoverBg.setAttribute('rx', '4');
-        hoverBg.setAttribute('fill', isActive ? activeFill : hoverFill);
+        hoverBg.setAttribute('fill', isActive ? idleFill : hoverFill);
         hoverBg.setAttribute('opacity', isActive ? '1' : '0');
         hoverBg.style.transition = 'opacity 0.15s ease';
         group.appendChild(hoverBg);
@@ -138,7 +139,7 @@ export default function BlogNav({ className = '' }) {
           strokeWidth: isActive ? 2.2 : 1.5,
           roughness: 1.0,
           bowing: 1.5,
-          fill: isActive ? activeFill : idleFill,
+          fill: isActive ? idleFill : PANEL_FILL,
           fillStyle: 'solid',
         });
         group.appendChild(rect);

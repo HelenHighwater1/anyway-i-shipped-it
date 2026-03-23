@@ -1,4 +1,5 @@
 import { Inter, Montserrat } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
 import { SITE_TITLE, SITE_TAGLINE } from '@/lib/site';
 import './globals.css';
 
@@ -35,7 +36,10 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         />
       </head>
-      <body className="dotGrid">{children}</body>
+      <body className="dotGrid">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

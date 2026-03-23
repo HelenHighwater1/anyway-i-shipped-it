@@ -37,26 +37,6 @@ const INITIAL_SVG_HTML = cleanSvgString(APPLICATION_WORKFLOW_SVG_RAW);
 const FADE_TRANSITION =
   'opacity 0.85s cubic-bezier(0.33, 1, 0.68, 1)';
 
-// #region agent log
-function dbgLog(hypothesisId, location, message, data) {
-  fetch('http://127.0.0.1:7422/ingest/517ef26d-4527-4a88-aa30-bac6cdd3b9ec', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Debug-Session-Id': 'b4535d',
-    },
-    body: JSON.stringify({
-      sessionId: 'b4535d',
-      hypothesisId,
-      location,
-      message,
-      data,
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {});
-}
-// #endregion
-
 /** Landing workflow diagram with staggered reveal (top-level `<g>` order matches exported SVG). */
 export default function ApplicationWorkflowSvg({
   className = '',
@@ -83,47 +63,20 @@ export default function ApplicationWorkflowSvg({
     []
   );
 
-  // #region agent log
-  useEffect(() => {
-    dbgLog('H5', 'ApplicationWorkflowSvg.jsx:inView', 'useInView value', {
-      inView,
-    });
-  }, [inView]);
-  // #endregion
-
   useEffect(() => {
     if (typeof window === 'undefined') return;
     reducedMotion.current = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
-    // #region agent log
-    dbgLog('H2', 'ApplicationWorkflowSvg.jsx:reducedMotion', 'matchMedia result', {
-      reducedMotion: reducedMotion.current,
-    });
-    // #endregion
   }, []);
 
   useLayoutEffect(() => {
-    // #region agent log
-    dbgLog('H1', 'ApplicationWorkflowSvg.jsx:layout:start', 'prep layout start', {
-      initialHtmlLen: INITIAL_SVG_HTML.length,
-      hasHost: Boolean(hostRef.current),
-    });
-    // #endregion
     if (!hostRef.current) {
-      // #region agent log
-      dbgLog('H1', 'ApplicationWorkflowSvg.jsx:layout:abort', 'no hostRef', {});
-      // #endregion
       setSvgPrepared(false);
       return;
     }
     const svg = hostRef.current.querySelector('svg');
     if (!svg) {
-      // #region agent log
-      dbgLog('H1', 'ApplicationWorkflowSvg.jsx:layout:abort', 'no svg in host', {
-        innerLen: hostRef.current.innerHTML?.length ?? 0,
-      });
-      // #endregion
       setSvgPrepared(false);
       return;
     }
@@ -142,13 +95,6 @@ export default function ApplicationWorkflowSvg({
     setVisibleMax(0);
     animDone.current = false;
     setSvgPrepared(true);
-    // #region agent log
-    dbgLog('H1', 'ApplicationWorkflowSvg.jsx:layout:ok', 'prep complete', {
-      groupCount: gs.length,
-      svgChildCount: svg.children.length,
-      fix: 'memo-wrapper-hostClip',
-    });
-    // #endregion
   }, []);
 
   const reveal = useCallback((upTo) => {
@@ -165,21 +111,8 @@ export default function ApplicationWorkflowSvg({
       return;
     }
     if (reducedMotion.current || animDone.current) {
-      // #region agent log
-      dbgLog('H3', 'ApplicationWorkflowSvg.jsx:reveal:all', 'reveal(totalSteps)', {
-        totalSteps,
-        reducedMotion: reducedMotion.current,
-        animDone: animDone.current,
-      });
-      // #endregion
       reveal(totalSteps);
     } else {
-      // #region agent log
-      dbgLog('H3', 'ApplicationWorkflowSvg.jsx:reveal:partial', 'reveal(visibleMax)', {
-        visibleMax,
-        totalSteps,
-      });
-      // #endregion
       reveal(visibleMax);
     }
   }, [visibleMax, totalSteps, svgPrepared, reveal]);
@@ -189,34 +122,14 @@ export default function ApplicationWorkflowSvg({
       return;
     }
     if (reducedMotion.current) {
-      // #region agent log
-      dbgLog('H4', 'ApplicationWorkflowSvg.jsx:anim:reduced', 'skip timer, show all', {
-        totalSteps,
-      });
-      // #endregion
       setVisibleMax(totalSteps);
       animDone.current = true;
       return;
     }
     if (visibleMax >= totalSteps) {
-      // #region agent log
-      dbgLog('H4', 'ApplicationWorkflowSvg.jsx:anim:done', 'animation finished guard', {
-        visibleMax,
-        totalSteps,
-      });
-      // #endregion
       animDone.current = true;
       return;
     }
-    // #region agent log
-    dbgLog('H4', 'ApplicationWorkflowSvg.jsx:anim:schedule', 'setTimeout step', {
-      inView,
-      visibleMax,
-      totalSteps,
-      stepBatch,
-      stepDelayMs,
-    });
-    // #endregion
     const t = setTimeout(() => {
       setVisibleMax((v) => Math.min(v + stepBatch, totalSteps));
     }, stepDelayMs);

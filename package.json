@@ -9,6 +9,7 @@
     "sync-workflow-svg": "node scripts/sync-application-workflow-svg.mjs"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.38.0",
     "gray-matter": "^4.0.3",
     "next": "^16.2.1",
