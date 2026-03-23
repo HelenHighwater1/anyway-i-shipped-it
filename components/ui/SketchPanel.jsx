@@ -56,8 +56,14 @@ export default function SketchPanel({
         svgEl.setAttribute('height', String(height));
         while (svgEl.firstChild) svgEl.removeChild(svgEl.firstChild);
 
+        const narrow = width < 768;
+        const rectOpts = {
+          ...ROUGH_RECT,
+          ...(narrow ? { roughness: 0.8, bowing: 0.8 } : {}),
+        };
+
         const rc = rough.svg(svgEl);
-        svgEl.appendChild(rc.rectangle(4, 4, width - 8, height - 8, ROUGH_RECT));
+        svgEl.appendChild(rc.rectangle(4, 4, width - 8, height - 8, rectOpts));
 
         const corners = [
           [12, 12],

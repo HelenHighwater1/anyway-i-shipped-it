@@ -47,8 +47,10 @@ export default function SketchBox({
         svgEl.setAttribute('height', String(height));
         while (svgEl.firstChild) svgEl.removeChild(svgEl.firstChild);
 
+        const narrow = width < 768;
         const opts = {
           ...ROUGH_RECT,
+          ...(narrow ? { roughness: 0.7, bowing: 0.7 } : {}),
           ...(transparentSketchFill ? { fill: 'transparent' } : {}),
           ...(strokeColor != null ? { stroke: strokeColor } : {}),
         };

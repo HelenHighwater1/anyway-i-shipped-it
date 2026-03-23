@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './VideoPlayer.module.css';
 
 /**
- * BLOG_STANDARDS.md - MP4: autoPlay, loop, muted, playsInline, no controls.
- * On viewports under 768px, autoplay is disabled (resize-aware) per mobile guidance.
+ * BLOG_STANDARDS.md - MP4: autoPlay, loop, muted, playsInline, no controls on desktop.
+ * Under 768px: no autoplay; native controls so users can tap to play (iOS/Safari).
  */
 export default function VideoPlayer({
   src,
@@ -14,6 +14,7 @@ export default function VideoPlayer({
   webmSrc,
 }) {
   const ref = useRef(null);
+  const [showControls, setShowControls] = useState(false);
 
   useEffect(() => {
     const video = ref.current;
@@ -23,9 +24,11 @@ export default function VideoPlayer({
 
     const apply = () => {
       if (mql.matches) {
+        setShowControls(false);
         video.muted = true;
         video.play().catch(() => {});
       } else {
+        setShowControls(true);
         video.pause();
       }
     };
@@ -43,7 +46,7 @@ export default function VideoPlayer({
         loop
         muted
         playsInline
-        controls={false}
+        controls={showControls}
         poster={poster}
         preload="metadata"
         disablePictureInPicture
