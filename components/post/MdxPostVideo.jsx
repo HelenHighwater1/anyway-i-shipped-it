@@ -4,8 +4,9 @@ import styles from './MdxPostVideo.module.css';
 
 /**
  * MDX: centered post video (BLOG_STANDARDS: loop, muted, no mobile autoplay).
+ * Optional `stamp` src overlays an image on the top-right corner.
  */
-export default function MdxPostVideo({ src, poster }) {
+export default function MdxPostVideo({ src, poster, stamp, stampAlt }) {
   if (!src || typeof src !== 'string') return null;
 
   return (
@@ -17,6 +18,14 @@ export default function MdxPostVideo({ src, poster }) {
       >
         <VideoPlayer src={src} poster={poster} />
       </SketchBox>
+      {stamp && (
+        <img
+          src={stamp}
+          alt={stampAlt ?? ''}
+          className={styles.stamp}
+          aria-hidden="true"
+        />
+      )}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import MdxCenterFigure from '@/components/post/MdxCenterFigure';
+import MdxClickableImage from '@/components/post/MdxClickableImage';
 import MdxMediaAside from '@/components/post/MdxMediaAside';
 import MdxPostVideo from '@/components/post/MdxPostVideo';
 import PostNav from '@/components/post/PostNav';
@@ -100,6 +101,7 @@ export default async function PostPage({ params }) {
       components: {
         img: MdxImage,
         MdxCenterFigure,
+        MdxClickableImage,
         MdxMediaAside,
         MdxPostVideo,
       },

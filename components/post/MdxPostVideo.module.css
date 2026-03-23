@@ -1,7 +1,19 @@
 .root {
+  position: relative;
   margin: 2rem auto 0;
   width: 100%;
   max-width: min(50rem, 100%);
+}
+
+.stamp {
+  position: absolute;
+  top: 2.5rem;
+  right: 0.75rem;
+  width: 300px;
+  transform: rotate(25deg);
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0.85;
 }
 
 .frame {

@@ -1,0 +1,26 @@
+.trigger {
+  color: var(--sketch-blue);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  line-height: inherit;
+}
+
+.trigger:hover {
+  text-decoration-thickness: 2px;
+}
+
+.trigger:focus {
+  outline: none;
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--sketch-blue);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
