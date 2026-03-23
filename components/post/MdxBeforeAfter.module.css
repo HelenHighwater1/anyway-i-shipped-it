@@ -1,0 +1,75 @@
+/* Trigger: sketch link style (Virgil) */
+.trigger {
+  display: block;
+  margin-top: 0.75rem;
+  text-align: center;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-sketch);
+  font-size: 0.95rem;
+  color: var(--sketch-blue);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  line-height: inherit;
+}
+
+.trigger:hover {
+  text-decoration-thickness: 2px;
+  opacity: 0.9;
+}
+
+.trigger:focus {
+  outline: none;
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--sketch-blue);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/*
+ * Wider modal — override base dialogInner (56rem) so both shots fit side by side.
+ */
+.dialogInnerWide {
+  max-width: min(96vw, 80rem) !important;
+}
+
+/*
+ * Side-by-side row. No overflow, no scroll — both images must fit inside the modal.
+ * Height is set on the container; each image scales to fill its half while staying
+ * fully visible (max-height + max-width + object-fit: contain).
+ */
+.pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+  height: min(75vh, 38rem);
+}
+
+.pairImg {
+  display: block;
+  max-height: 100%;
+  max-width: calc(50% - 0.75rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .pair {
+    flex-direction: column;
+    height: auto;
+    gap: 1rem;
+  }
+
+  .pairImg {
+    max-width: 100%;
+    max-height: min(40vh, 20rem);
+  }
+}

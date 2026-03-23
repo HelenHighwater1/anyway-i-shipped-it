@@ -3,6 +3,7 @@ import path from 'path';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { compileMDX } from 'next-mdx-remote/rsc';
+import MdxBeforeAfter from '@/components/post/MdxBeforeAfter';
 import MdxCenterFigure from '@/components/post/MdxCenterFigure';
 import MdxClickableImage from '@/components/post/MdxClickableImage';
 import MdxMediaAside from '@/components/post/MdxMediaAside';
@@ -103,6 +104,7 @@ export default async function PostPage({ params }) {
       options: { parseFrontmatter: true },
       components: {
         img: MdxImage,
+        MdxBeforeAfter,
         MdxCenterFigure,
         MdxClickableImage,
         MdxMediaAside,
