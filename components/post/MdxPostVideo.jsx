@@ -1,3 +1,4 @@
+import SketchBox from '@/components/ui/SketchBox';
 import VideoPlayer from '@/components/post/VideoPlayer';
 import styles from './MdxPostVideo.module.css';
 
@@ -9,7 +10,13 @@ export default function MdxPostVideo({ src, poster }) {
 
   return (
     <div className={styles.root}>
-      <VideoPlayer src={src} poster={poster} />
+      <SketchBox
+        className={styles.frame}
+        contentClassName={styles.inner}
+        transparentSketchFill
+      >
+        <VideoPlayer src={src} poster={poster} />
+      </SketchBox>
     </div>
   );
 }

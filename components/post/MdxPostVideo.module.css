@@ -3,3 +3,13 @@
   width: 100%;
   max-width: min(50rem, 100%);
 }
+
+.frame {
+  width: 100%;
+}
+
+.inner.inner {
+  padding: 3px;
+  box-sizing: border-box;
+  line-height: 0;
+}
