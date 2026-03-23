@@ -68,7 +68,7 @@
 
 .frameRoot :global(ul),
 .frameRoot :global(ol) {
-  margin: 0 0 1rem 1.25rem;
+  margin: 0 0 1rem calc(1.25rem + 20px);
   padding: 0;
   font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
   font-size: 1rem;
@@ -76,8 +76,63 @@
   color: var(--sketch-text);
 }
 
+.frameRoot :global(ul) {
+  list-style: none;
+}
+
+/* Sketch-style right arrows; colors cycle every 5 items (nested lists count from 1 again) */
+.frameRoot :global(ul > li) {
+  position: relative;
+  padding-left: 1.4rem;
+}
+
+/* Excalidraw arrow from /assets/arrow.svg; mask + background-color = one asset, cycling hues */
+.frameRoot :global(ul > li)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5lh;
+  transform: translateY(-50%);
+  width: 1.35rem;
+  height: 0.3rem;
+  -webkit-mask-image: url('/assets/arrow.svg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+  -webkit-mask-size: contain;
+  mask-image: url('/assets/arrow.svg');
+  mask-repeat: no-repeat;
+  mask-position: left center;
+  mask-size: contain;
+}
+
+.frameRoot :global(ul > li:nth-child(5n + 1)::before) {
+  background-color: var(--sketch-blue);
+}
+
+.frameRoot :global(ul > li:nth-child(5n + 2)::before) {
+  background-color: var(--sketch-coral);
+}
+
+.frameRoot :global(ul > li:nth-child(5n + 3)::before) {
+  background-color: var(--sketch-green);
+}
+
+.frameRoot :global(ul > li:nth-child(5n + 4)::before) {
+  background-color: var(--sketch-purple);
+}
+
+.frameRoot :global(ul > li:nth-child(5n + 5)::before) {
+  background-color: var(--sketch-amber);
+}
+
 .frameRoot :global(li) {
   margin-bottom: 0.35rem;
+}
+
+.frameRoot :global(li > ul),
+.frameRoot :global(li > ol) {
+  margin-top: 0.35rem;
+  margin-bottom: 0;
 }
 
 .frameRoot :global(strong) {

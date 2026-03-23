@@ -8,7 +8,7 @@ import styles from './MdxMediaAside.module.css';
  * narrow viewports stack copy first, then image + caption.
  *
  * @param {'right' | 'left'} [side]
- * @param {'default' | 'small' | 'wide'} [size] small = narrow rail; wide = a bit wider than default
+ * @param {'default' | 'small' | 'medium' | 'wide'} [size] small = narrow rail; medium = slightly wider than default; wide = full-page style
  * @param {boolean} [splitLead] First child full-width above the float; remaining children wrap beside the image
  * @param {string} [caption] Optional line under the image
  */
@@ -39,15 +39,21 @@ export default function MdxMediaAside({
   const sizeClass =
     size === 'small'
       ? styles.mediaSmall
-      : size === 'wide'
-        ? styles.mediaWide
-        : '';
+      : size === 'medium'
+        ? styles.mediaMedium
+        : size === 'wide'
+          ? styles.mediaWide
+          : '';
   const mediaClass = [styles.media, sideClass, sizeClass]
     .filter(Boolean)
     .join(' ');
 
   const frameVariant =
-    size === 'small' ? 'asideCompact' : size === 'wide' ? 'asideWide' : 'aside';
+    size === 'small'
+      ? 'asideCompact'
+      : size === 'wide'
+        ? 'asideWide'
+        : 'aside';
 
   return (
     <div className={styles.root}>

@@ -52,6 +52,12 @@
     max-width: 35.7%;
   }
 
+  /* Slightly wider than default (hero screenshots, etc.) */
+  .mediaMedium {
+    width: min(40.5%, 17.5rem);
+    max-width: 40.5%;
+  }
+
   .mediaRight {
     float: right;
     margin: 0 0 0.75rem 1.25rem;
