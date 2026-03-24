@@ -46,7 +46,7 @@ While I had the inspector open anyways, I noticed they used a tool called Hugo- 
   alt="Hand-drawn wireframe of single-page layout: header with logo and name, home and essays column, main content area, footer with contact and backers"
 >
 
-Welp- now I was in too deep. I wanted to not only give them a new style, but also challenge myself with considering how to do this while keeping their priorities- preventing web scraping, independent URLs for articles while including them on my single-page design, and simultaneously doing static HTML for quick, reliable, simple builds. Challenge accepted (obviously with Cursor's help).
+Welp- now I was in too deep. I wanted to not only give them a new style, but also challenge myself with considering how to do this while keeping their priorities: preventing web scraping, independent URLs for articles while including them on my single-page design, and simultaneously doing static HTML for quick, reliable, simple builds. Challenge accepted (obviously with Cursor's help).
 
 I had an idea about the layout. Before starting anything at all though, I had an ask-only chat session with Cursor (it's been a while, so I don't recall if I had an LLM version selected or if it was on auto). We discussed:
 
@@ -74,7 +74,7 @@ I had an idea about the layout. Before starting anything at all though, I had an
 
 I described the layout, fonts, color scheme, etc., and had Cursor build out the plan and execute.
 
-Now, this was a month ago, and I don't recall exactly what tweaks I made, but I think it was pretty close and it was mostly user experience tweaks. I used an 80 line python After it was wrapped up, I opened a new cursor agent and asked it to evaluate the code for anything deprecated, anything redundant, and just generally making sure it was clean and efficient. Back in agent mode, I asked it to clean up anything listed. I ran through the changes, checked the local host, and after verifying that nothing was broken, I did it again. The second time it felt like Cursor was grasping at straws- I think it made one or two very optional suggestions but nothing seemed worth making further changes.
+Now, this was a month ago, and I don't recall exactly what tweaks I made, but I think it was pretty close and it was mostly user experience tweaks. Instead of Hugo, I made a Python script to generate static HTML- giving each essay its own URL while preserving the fluid feel of a single-page application.   After it was wrapped up, I opened a new cursor agent and asked it to evaluate the code for anything deprecated, anything redundant, and just generally making sure it was clean and efficient. Back in agent mode, I asked it to clean up anything listed. I ran through the changes, checked the local host, and after verifying that nothing was broken, I did it again. The second time it felt like Cursor was grasping at straws- I think it made one or two very optional suggestions but nothing seemed worth making further changes.
 
 </MdxMediaAside>
 
@@ -95,15 +95,16 @@ I was pleased with how it looked, and I think I did a good job maintaining all t
 
 Now to send it. I intentionally did not put it on GitHub- after all, I was using all their IP with their essays and messaging. Instead, I thought the best way was to zip up the directory and send it to the CEO (his email was the only personal email on their website, the company was still super small so- whatever). I did also include a decisions.txt outlining the choices I made. I applied for the job, and then emailed the CEO with the zipped folder, and a gif showing the app running on my local host (in fact, the one that is included here!) so that he could see what it was without any effort.
 
-That went out around 5pm that same day. My rejection came the next day- Saturday- at almost the same time. I feel like it is safe to assume that it was based on the email / website redesign given the timing, but we will never know. On the bright side- it was a fun exercise, and I did learn quite a bit!
-
-And thus began my new strategy. So far, not at all effective for jobs, but engaging for me.
-
 <MdxPostVideo
   src="/posts/mechanize/assets/mechanize%20glow-up.mp4"
   stamp="/posts/mechanize/assets/rejected.png"
   stampAlt="REJECTED stamp"
 />
+
+That went out around 5pm that same day. My rejection came the next day- Saturday- at almost the same time. I feel like it is safe to assume that it was based on the email / website redesign given the timing, but we will never know. On the bright side- it was a fun exercise, and I did learn quite a bit!
+
+And thus began my new strategy. So far, not at all effective for jobs, but engaging for me.  Anyway, I shipped it &macr;&#92;&#95;(&#12484;)&#95;/&macr;
+
 
 <MdxBeforeAfter
   beforeSrc="/posts/mechanize/assets/mechanize-home-screen-comparison.png"
