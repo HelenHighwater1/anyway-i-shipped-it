@@ -1,15 +1,16 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import styles from './VideoPlayer.module.css';
 
 /** ~35% of the player must be visible before muted autoplay kicks in */
 const SCROLL_PLAY_THRESHOLD = 0.35;
 
 /**
- * BLOG_STANDARDS.md - MP4: loop, muted, playsInline; no controls on desktop.
+ * BLOG_STANDARDS.md - MP4: loop, muted, playsInline, no native controls.
  * Playback starts when the player scrolls into view (muted = mobile autoplay-friendly).
- * Under 768px: native controls stay available for pause / scrub / replay.
+ * Native controls stay off on mobile too — iOS Safari draws a dark overlay over the
+ * whole video when controls are on; scroll in/out handles play/pause.
  */
 export default function VideoPlayer({
   src,
@@ -19,26 +20,13 @@ export default function VideoPlayer({
 }) {
   const wrapRef = useRef(null);
   const videoRef = useRef(null);
-  const [showControls, setShowControls] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     const wrap = wrapRef.current;
     if (!video || !wrap) return;
 
-    const mql = window.matchMedia('(min-width: 768px)');
-
-    const applyViewport = () => {
-      if (mql.matches) {
-        setShowControls(false);
-      } else {
-        setShowControls(true);
-      }
-      video.muted = true;
-    };
-
-    applyViewport();
-    mql.addEventListener('change', applyViewport);
+    video.muted = true;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -57,7 +45,6 @@ export default function VideoPlayer({
     observer.observe(wrap);
 
     return () => {
-      mql.removeEventListener('change', applyViewport);
       observer.disconnect();
     };
   }, []);
@@ -73,7 +60,7 @@ export default function VideoPlayer({
         loop
         muted
         playsInline
-        controls={showControls}
+        controls={false}
         poster={poster}
         preload="metadata"
         disablePictureInPicture

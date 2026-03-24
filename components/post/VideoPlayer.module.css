@@ -10,6 +10,4 @@
   height: auto;
   display: block;
   vertical-align: middle;
-  /* iOS Safari: remove dark tap flash on native video controls */
-  -webkit-tap-highlight-color: transparent;
 }

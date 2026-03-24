@@ -3,7 +3,7 @@ import VideoPlayer from '@/components/post/VideoPlayer';
 import styles from './MdxPostVideo.module.css';
 
 /**
- * MDX: centered post video (BLOG_STANDARDS: loop, muted, no mobile autoplay).
+ * MDX: centered post video (BLOG_STANDARDS: loop, muted, scroll-into-view play).
  * Optional `stamp` src overlays an image on the top-right corner.
  */
 export default function MdxPostVideo({ src, poster, stamp, stampAlt }) {
