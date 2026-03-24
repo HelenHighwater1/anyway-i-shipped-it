@@ -22,6 +22,10 @@ const VIRGIL_WOFF2 =
 export const metadata = {
   title: SITE_TITLE,
   description: SITE_TAGLINE,
+  icons: {
+    icon: [{ url: '/assets/favicon.png', type: 'image/png' }],
+    apple: '/assets/favicon.png',
+  },
 };
 
 export default function RootLayout({ children }) {
