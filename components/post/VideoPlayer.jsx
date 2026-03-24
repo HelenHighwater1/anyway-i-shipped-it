@@ -3,9 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './VideoPlayer.module.css';
 
+/** ~35% of the player must be visible before muted autoplay kicks in */
+const SCROLL_PLAY_THRESHOLD = 0.35;
+
 /**
- * BLOG_STANDARDS.md - MP4: autoPlay, loop, muted, playsInline, no controls on desktop.
- * Under 768px: no autoplay; native controls so users can tap to play (iOS/Safari).
+ * BLOG_STANDARDS.md - MP4: loop, muted, playsInline; no controls on desktop.
+ * Playback starts when the player scrolls into view (muted = mobile autoplay-friendly).
+ * Under 768px: native controls stay available for pause / scrub / replay.
  */
 export default function VideoPlayer({
   src,
@@ -13,35 +17,58 @@ export default function VideoPlayer({
   poster,
   webmSrc,
 }) {
-  const ref = useRef(null);
+  const wrapRef = useRef(null);
+  const videoRef = useRef(null);
   const [showControls, setShowControls] = useState(false);
 
   useEffect(() => {
-    const video = ref.current;
-    if (!video) return;
+    const video = videoRef.current;
+    const wrap = wrapRef.current;
+    if (!video || !wrap) return;
 
     const mql = window.matchMedia('(min-width: 768px)');
 
-    const apply = () => {
+    const applyViewport = () => {
       if (mql.matches) {
         setShowControls(false);
-        video.muted = true;
-        video.play().catch(() => {});
       } else {
         setShowControls(true);
-        video.pause();
       }
+      video.muted = true;
     };
 
-    apply();
-    mql.addEventListener('change', apply);
-    return () => mql.removeEventListener('change', apply);
+    applyViewport();
+    mql.addEventListener('change', applyViewport);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+        if (entry.isIntersecting && entry.intersectionRatio >= SCROLL_PLAY_THRESHOLD) {
+          video.muted = true;
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: [0, SCROLL_PLAY_THRESHOLD, 0.5, 0.75, 1] }
+    );
+
+    observer.observe(wrap);
+
+    return () => {
+      mql.removeEventListener('change', applyViewport);
+      observer.disconnect();
+    };
   }, []);
 
   return (
-    <div className={`${styles.wrap} ${className}`.trim()}>
+    <div
+      ref={wrapRef}
+      className={`${styles.wrap} ${className}`.trim()}
+    >
       <video
-        ref={ref}
+        ref={videoRef}
         className={styles.video}
         loop
         muted
