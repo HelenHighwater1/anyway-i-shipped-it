@@ -63,11 +63,31 @@ jobs:
           fi
           REPO="${PORTFOLIO_REPOSITORY}"
           FILE="${PORTFOLIO_FILE}"
+
+          # Probe token: which identity is this acting as, and does it see the repo?
+          echo "::group::Token sanity check"
+          WHO_CODE=$(curl -sS -o /tmp/gh_who.json -w "%{http_code}" \
+            -H "Authorization: Bearer ${PORTFOLIO_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/user")
+          echo "GET /user -> HTTP ${WHO_CODE}"
+          jq -r '{login, type, id}' /tmp/gh_who.json 2>/dev/null || cat /tmp/gh_who.json
+          REPO_CODE=$(curl -sS -o /tmp/gh_repo.json -w "%{http_code}" \
+            -H "Authorization: Bearer ${PORTFOLIO_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${REPO}")
+          echo "GET /repos/${REPO} -> HTTP ${REPO_CODE}"
+          jq -r '{full_name, private, permissions, default_branch, message}' /tmp/gh_repo.json 2>/dev/null || cat /tmp/gh_repo.json
+          echo "::endgroup::"
+
           HTTP_CODE=$(curl -sS -o /tmp/gh_latest_contents.json -w "%{http_code}" \
             -H "Authorization: Bearer ${PORTFOLIO_TOKEN}" \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             "https://api.github.com/repos/${REPO}/contents/public/latest-post.json")
+          echo "GET contents -> HTTP ${HTTP_CODE}"
           SHA=""
           if [ "${HTTP_CODE}" = "200" ]; then
             SHA=$(jq -r '.sha // empty' /tmp/gh_latest_contents.json)
@@ -81,12 +101,19 @@ jobs:
             --rawfile c "$FILE" \
             --arg sha "$SHA" \
             '($c | @base64) as $b64 | {message: $msg, content: $b64} + (if ($sha | length) > 0 then {sha: $sha} else {} end)')
-          curl -fsSL -X PUT \
+
+          PUT_CODE=$(curl -sS -o /tmp/gh_put.json -w "%{http_code}" -X PUT \
             -H "Authorization: Bearer ${PORTFOLIO_TOKEN}" \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             "https://api.github.com/repos/${REPO}/contents/public/latest-post.json" \
-            -d "$BODY"
+            -d "$BODY")
+          echo "PUT contents -> HTTP ${PUT_CODE}"
+          if [ "${PUT_CODE}" != "200" ] && [ "${PUT_CODE}" != "201" ]; then
+            echo "::error::GitHub API returned HTTP ${PUT_CODE} when pushing portfolio latest-post.json"
+            cat /tmp/gh_put.json
+            exit 1
+          fi
 
       - name: Trigger Vercel deploy hook
         env:
