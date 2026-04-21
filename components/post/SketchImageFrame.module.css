@@ -7,10 +7,13 @@
   box-sizing: border-box;
 }
 
+/* Frame hugs the rendered image so portrait/height-capped images
+ * don't leave whitespace inside the sketch box. */
 .wrapStack {
-  width: 100%;
+  width: fit-content;
   max-width: 100%;
   height: auto;
+  margin: 0 auto;
   box-sizing: border-box;
 }
 

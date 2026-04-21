@@ -1,24 +1,17 @@
+import PostShell from '@/components/post/PostShell';
+
 /**
- * Post-specific shell: sketch layout + motion go here.
- * Optional `title` and `date` (from meta.json) when you add a framed layout like mechanize.
+ * Baseline post layout: delegates to shared `PostShell` (SketchPanel + typography).
+ * Duplicate this folder for a new post. For per-post motion or panel tweaks, pass
+ * `className` / `contentClassName` to `PostShell` and add a colocated `layout.module.css`.
+ *
+ * Site chrome (header + nav) lives in `app/(site)/layout.jsx` via `SiteBlogChrome`.
+ * `title` and `date` come from meta.json (passed by the dynamic post page).
  */
 export default function PostLayout({ children, title, date }) {
   return (
-    <article>
-      {title ? <h1>{title}</h1> : null}
-      {date ? (
-        <p
-          style={{
-            marginTop: '-0.25rem',
-            marginBottom: '1rem',
-            fontSize: '0.8rem',
-            color: 'var(--sketch-text-muted)',
-          }}
-        >
-          {date}
-        </p>
-      ) : null}
+    <PostShell title={title} date={date}>
       {children}
-    </article>
+    </PostShell>
   );
 }

@@ -7,13 +7,65 @@
 
 .stamp {
   position: absolute;
-  top: 2.5rem;
-  right: 0.75rem;
-  width: 300px;
+  top: var(--mdx-post-video-stamp-top, 2.5rem);
+  right: var(--mdx-post-video-stamp-right, 0.75rem);
+  width: var(--mdx-post-video-stamp-width, 300px);
   transform: rotate(25deg);
   pointer-events: none;
   z-index: 20;
   opacity: 0.85;
+  /* Solid white background, with crossed linear gradient masks so each
+   * edge (top, bottom, left, right) feathers uniformly - not just corners. */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    var(--mdx-post-video-stamp-bg-opacity, 0.32)
+  );
+  -webkit-mask-image:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  mask-composite: intersect;
+}
+
+.link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--sketch-text, currentColor);
+  outline-offset: 4px;
 }
 
 .frame {

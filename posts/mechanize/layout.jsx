@@ -1,5 +1,4 @@
-import SketchPanel from '@/components/ui/SketchPanel';
-import styles from './layout.module.css';
+import PostShell from '@/components/post/PostShell';
 
 /**
  * Mechanize: sketch panel frame for the post body.
@@ -8,19 +7,8 @@ import styles from './layout.module.css';
  */
 export default function PostLayout({ children, title, date }) {
   return (
-    <SketchPanel
-      className={[styles.postPanel, 'animateFadeIn'].filter(Boolean).join(' ')}
-      contentClassName={styles.postSketchContent}
-    >
-      <article className={styles.frameRoot}>
-        {title ? <h1 className={styles.postTitle}>{title}</h1> : null}
-        {date ? (
-          <p className={styles.postDate} aria-label="Published date">
-            {date}
-          </p>
-        ) : null}
-        {children}
-      </article>
-    </SketchPanel>
+    <PostShell title={title} date={date}>
+      {children}
+    </PostShell>
   );
 }

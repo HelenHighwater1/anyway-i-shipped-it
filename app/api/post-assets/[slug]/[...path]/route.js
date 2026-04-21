@@ -73,7 +73,11 @@ function readFileSlice(filePath, start, end) {
 export async function GET(request, context) {
   const params = await context.params;
   const slug = params.slug;
-  const segments = params.path;
+  /** Next may pass a single segment as a string instead of a one-element array. */
+  let segments = params.path;
+  if (typeof segments === 'string') {
+    segments = segments ? [segments] : [];
+  }
 
   if (!isValidSlug(slug)) {
     return new NextResponse(null, { status: 404 });

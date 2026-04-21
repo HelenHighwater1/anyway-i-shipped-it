@@ -2,7 +2,7 @@
   padding-bottom: 3rem;
 }
 
-/* Base MDX shell; post layouts may add their own typography (e.g. mechanize/layout.module.css) */
+/* Base MDX shell; post layouts delegate to PostShell (components/post/PostShell.module.css) */
 .mdxBody {
   font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
   line-height: 1.65;
