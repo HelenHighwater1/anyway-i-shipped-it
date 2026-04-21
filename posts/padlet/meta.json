@@ -1,9 +1,9 @@
 {
-  "published": false,
+  "published": true,
   "slug": "padlet",
   "title": "Padlet",
   "date": "2026-04-20",
-  "summary": "",
-  "thumbnail": "/posts/padlet/assets/presidio-vibes.png",
+  "summary": "Only good vibes for this Presidio office.",
+  "thumbnail": "/posts/padlet/assets/thumbnail.png",
   "url": "https://anyway-i-shipped-it.com/posts/padlet"
 }

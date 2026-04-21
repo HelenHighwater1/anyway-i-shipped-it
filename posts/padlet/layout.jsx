@@ -7,7 +7,11 @@ import PostShell from '@/components/post/PostShell';
  */
 export default function PostLayout({ children, title, date }) {
   return (
-    <PostShell title={title} date={date}>
+    <PostShell
+      title={title}
+      date={date}
+      dateInlineLink={{ href: '#presidio-demo', label: 'skip to the demo' }}
+    >
       {children}
     </PostShell>
   );

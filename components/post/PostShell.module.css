@@ -53,6 +53,56 @@
   color: var(--sketch-text-muted);
 }
 
+/* Date + optional inline link (same visual line, wraps on narrow viewports) */
+.postDateRow {
+  margin: 0 0 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0 0.4em;
+  text-align: center;
+  font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--sketch-text-muted);
+}
+
+.postDateRow .postDate {
+  margin: 0;
+  display: inline;
+}
+
+.dateRowSep {
+  color: var(--sketch-text-muted);
+  opacity: 0.5;
+  user-select: none;
+}
+
+/* Subdued to match the date voice; beat the generic .frameRoot a rule */
+.frameRoot .postDateRow .dateRowLink {
+  margin: 0;
+  font: inherit;
+  font-weight: normal;
+  color: var(--sketch-text-muted);
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 120ms ease;
+}
+
+.frameRoot .postDateRow .dateRowLink:hover,
+.frameRoot .postDateRow .dateRowLink:focus-visible {
+  color: var(--sketch-text);
+  text-decoration-style: solid;
+}
+
+/* Beat .frameRoot :global(p) margin/specificity for the date row.
+ * Also prevents any stray bottom margin from the generic p rule below. */
+.frameRoot .postDateRow {
+  margin: 0 0 1.25rem;
+}
+
 .frameRoot :global(h2) {
   margin-top: 1.75rem;
   margin-bottom: 0.65rem;
