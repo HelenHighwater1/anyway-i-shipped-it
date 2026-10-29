@@ -9,10 +9,22 @@
 }
 
 .frameWrap {
+  position: relative;
   display: inline-block;
   width: 100%;
   max-width: 100%;
   text-align: center;
+}
+
+.stamp {
+  position: absolute;
+  top: var(--mdx-center-figure-stamp-top, 1.5rem);
+  right: var(--mdx-center-figure-stamp-right, -0.5rem);
+  width: var(--mdx-center-figure-stamp-width, 40%);
+  transform: rotate(25deg);
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0.85;
 }
 
 .caption {
